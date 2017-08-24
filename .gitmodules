@@ -1,0 +1,3 @@
+[submodule "AppTemplate/yoga"]
+	path = AppTemplate/yoga
+	url = https://github.com/facebook/yoga.git
