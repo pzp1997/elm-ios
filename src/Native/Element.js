@@ -1,4 +1,4 @@
-var _elm_lang$virtual_dom$Native_VirtualDom = function() {
+var _pzp1997$elm_ios$Native_Element = function() {
 
   var YOGA_KEY = 'YOGA';
   var EVENT_KEY = 'EVENT';

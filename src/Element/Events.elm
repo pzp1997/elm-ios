@@ -1,4 +1,4 @@
-module VirtualDom.Events
+module Element.Events
     exposing
         ( on
         , onBoolValueChanged
@@ -19,15 +19,15 @@ module VirtualDom.Events
 @docs on, onBoolValueChanged, onFloatValueChanged, onTouchUpInside, onTouchUpOutside, onTouchDown, onTouchDownRepeat, onTouchCancel, onTouchDragInside, onTouchDragOutside, onTouchDragEnter, onTouchDragExit, onAllTouchEvents, on
 -}
 
-import VirtualDom
-import VirtualDom.Element exposing (Attribute)
+import Element exposing (Attribute)
+import Element.Internal as Internal
 import Json.Decode as Json
 
 
 {-| -}
 on : String -> Json.Decoder msg -> Attribute msg
 on =
-    VirtualDom.on
+    Internal.on
 
 
 

@@ -1,4 +1,4 @@
-module VirtualDom.Attributes
+module Element.Attributes
     exposing
         ( map
         , text
@@ -66,9 +66,9 @@ module VirtualDom.Attributes
 -}
 
 import Color exposing (Color)
+import Element exposing (Attribute)
+import Element.Internal as Internal
 import Json.Encode as Json
-import VirtualDom
-import VirtualDom.Element exposing (Attribute)
 
 
 {- Property Helpers -}
@@ -76,17 +76,17 @@ import VirtualDom.Element exposing (Attribute)
 
 stringProperty : String -> String -> Attribute msg
 stringProperty name string =
-    VirtualDom.property name (Json.string string)
+    Internal.property name (Json.string string)
 
 
 intProperty : String -> Int -> Attribute msg
 intProperty name int =
-    VirtualDom.property name (Json.int int)
+    Internal.property name (Json.int int)
 
 
 floatProperty : String -> Float -> Attribute msg
 floatProperty name float =
-    VirtualDom.property name (Json.float float)
+    Internal.property name (Json.float float)
 
 
 colorProperty : String -> Color -> Attribute msg
@@ -95,7 +95,7 @@ colorProperty name color =
         rgb =
             Color.toRgb color
     in
-        VirtualDom.property name
+        Internal.property name
             (Json.list
                 [ Json.int rgb.red
                 , Json.int rgb.green
@@ -111,17 +111,17 @@ colorProperty name color =
 
 stringYogaProperty : String -> String -> Attribute msg
 stringYogaProperty name string =
-    VirtualDom.yogaProperty name (Json.string string)
+    Internal.yogaProperty name (Json.string string)
 
 
 intYogaProperty : String -> Int -> Attribute msg
 intYogaProperty name int =
-    VirtualDom.yogaProperty name (Json.int int)
+    Internal.yogaProperty name (Json.int int)
 
 
 floatYogaProperty : String -> Float -> Attribute msg
 floatYogaProperty name float =
-    VirtualDom.yogaProperty name (Json.float float)
+    Internal.yogaProperty name (Json.float float)
 
 
 
@@ -131,7 +131,7 @@ floatYogaProperty name float =
 {-| -}
 map : (a -> msg) -> Attribute a -> Attribute msg
 map =
-    VirtualDom.mapProperty
+    Internal.mapProperty
 
 
 
@@ -189,7 +189,7 @@ shadowColor value =
 {-| -}
 shadowOffset : Float -> Float -> Attribute msg
 shadowOffset xOffset yOffset =
-    VirtualDom.property "shadowOffset"
+    Internal.property "shadowOffset"
         (Json.list
             [ Json.float xOffset
             , Json.float yOffset

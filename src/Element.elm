@@ -1,4 +1,4 @@
-module VirtualDom.Element
+module Element
     exposing
         ( Element
         , Attribute
@@ -18,55 +18,55 @@ module VirtualDom.Element
 @docs Element, Attribute, label, image, button, slider, switch, column, row, map, beginnerProgram, program
 -}
 
-import VirtualDom
+import Element.Internal as Internal
 import Json.Encode as Json
 
 
 {-| -}
 type alias Element msg =
-    VirtualDom.Node msg
+    Internal.Node msg
 
 
 {-| -}
 type alias Attribute msg =
-    VirtualDom.Property msg
+    Internal.Property msg
 
 
 {-| -}
 label : List (Attribute msg) -> Element msg
 label properties =
-    VirtualDom.leaf "label" properties
+    Internal.leaf "label" properties
 
 
 {-| -}
 image : List (Attribute msg) -> Element msg
 image properties =
-    VirtualDom.leaf "image" properties
+    Internal.leaf "image" properties
 
 
 {-| -}
 button : List (Attribute msg) -> Element msg
 button properties =
-    VirtualDom.leaf "button" properties
+    Internal.leaf "button" properties
 
 
 {-| -}
 slider : List (Attribute msg) -> Element msg
 slider properties =
-    VirtualDom.leaf "slider" properties
+    Internal.leaf "slider" properties
 
 
 {-| -}
 switch : List (Attribute msg) -> Element msg
 switch properties =
-    VirtualDom.leaf "switch" properties
+    Internal.leaf "switch" properties
 
 
 {-| -}
 column : List (Attribute msg) -> List (Element msg) -> Element msg
 column properties children =
-    VirtualDom.parent
-        (VirtualDom.yogaProperty "flexDirection" (Json.string "column")
+    Internal.parent
+        (Internal.yogaProperty "flexDirection" (Json.string "column")
             :: properties
         )
         children
@@ -75,8 +75,8 @@ column properties children =
 {-| -}
 row : List (Attribute msg) -> List (Element msg) -> Element msg
 row properties children =
-    VirtualDom.parent
-        (VirtualDom.yogaProperty "flexDirection" (Json.string "row")
+    Internal.parent
+        (Internal.yogaProperty "flexDirection" (Json.string "row")
             :: properties
         )
         children
@@ -85,7 +85,7 @@ row properties children =
 {-| -}
 map : (a -> msg) -> Element a -> Element msg
 map =
-    VirtualDom.map
+    Internal.map
 
 
 {-| -}
@@ -113,4 +113,4 @@ program :
     }
     -> Program Never model msg
 program =
-    VirtualDom.program
+    Internal.program
