@@ -1,16 +1,16 @@
 {
-    "version": "0.0.1",
-    "summary": "Modified version of virtual-dom for iOS",
-    "repository": "https://github.com/elm-lang/virtual-dom.git",
+    "version": "0.1.0",
+    "summary": "Bringing the wonders of Elm to the iOS platform",
+    "repository": "https://github.com/pzp1997/elm-ios.git",
     "license": "BSD3",
     "source-directories": [
         "src"
     ],
     "exposed-modules": [
-        "VirtualDom.Element",
-        "VirtualDom.Attributes",
-        "VirtualDom.Events",
-        "VirtualDom.Lazy"
+        "Element",
+        "Element.Attributes",
+        "Element.Events",
+        "Element.Lazy"
     ],
     "native-modules": true,
     "dependencies": {
