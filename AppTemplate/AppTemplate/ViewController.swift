@@ -13,13 +13,13 @@ class ViewController: UIViewController {
         // expose initialRender and applyPatches to JS global context
         let initialRender: @convention(block) ([String : Any], [[String : Any]]) -> Void = { (view, handlerList) in
             var handlerList = handlerList
-            VirtualUIKit.initialRender(view: view, handlers: handlerList)
+            Renderer.initialRender(view: view, handlers: handlerList)
         }
         context.setObject(initialRender, forKeyedSubscript: "initialRender" as (NSCopying & NSObjectProtocol)!)
 
         let applyPatches: @convention(block) ([String : Any]) -> Void = { (patches) in
             var patches = patches
-            VirtualUIKit.applyPatches(&patches)
+            Renderer.applyPatches(&patches)
         }
         context.setObject(applyPatches, forKeyedSubscript: "applyPatches" as (NSCopying & NSObjectProtocol)!)
 
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
         }
 
         // load compiled Elm program
-        guard let appJsPath = Bundle.main.path(forResource: "counter3", ofType: "js") else {
+        guard let appJsPath = Bundle.main.path(forResource: "compiledElm", ofType: "js") else {
             return nil
         }
 
@@ -126,6 +126,8 @@ class ViewController: UIViewController {
 
 
 // Timers using Swift closures (polyfill for < iOS 10.0)
+
+
 class TimerActionTrampoline: NSObject {
     var action: (Timer) -> Void
     init(action: @escaping (Timer) -> Void) {
@@ -148,4 +150,3 @@ extension TimerActionFunctionProtocol {
     }
 }
 extension Timer: TimerActionFunctionProtocol {}
-
