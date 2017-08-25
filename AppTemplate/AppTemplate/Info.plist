@@ -32,8 +32,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>file:///Users/palmerpa/Elm/elm-ios/AppTemplate/AppTemplate/AppTemplate/AppDelegate.swift: warning: Missing file: /Users/palmerpa/Elm/elm-ios/AppTemplate/AppTemplate/AppTemplate/AppDelegate.swift is missing from working copy
-</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
