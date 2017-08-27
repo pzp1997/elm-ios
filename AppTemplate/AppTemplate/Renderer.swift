@@ -40,9 +40,9 @@ class Renderer: NSObject {
             case "parent":
                 if let facts = virtualView["facts"] as? Json, let children = virtualView["children"] as? [Json] {
                     let view: UIView = UIView()
-                    
+
                     applyFacts(view: view, facts: facts, tag: "parent")
-                    
+
                     var offsetRef = offset
                     for child in children {
                         offsetRef += 1
@@ -51,7 +51,7 @@ class Renderer: NSObject {
                         }
                         offsetRef += child["descendantsCount"] as? Int ?? 0
                     }
-                    
+
                     return view
                 }
             case "leaf":
@@ -103,8 +103,8 @@ class Renderer: NSObject {
 
 
     // ADD UIKIT NODES TO PATCHES
-    
-    
+
+
     static func addUIKitNodes(view: UIView, patch: inout Json) {
         if let ctor = patch["ctor"] as? String {
             switch ctor {
@@ -281,7 +281,7 @@ class Renderer: NSObject {
             view.yoga.isEnabled = true
         }
     }
-    
+
     static func applyLabelFacts(label: UILabel, facts: Json) {
         for key in facts.keys {
             switch key {
@@ -395,7 +395,7 @@ class Renderer: NSObject {
             applyLabelFacts(label: label, facts: facts)
         }
     }
-    
+
     static func applyViewFacts(view: UIView, facts: Json) {
         for key in facts.keys {
             switch key {
@@ -411,7 +411,7 @@ class Renderer: NSObject {
             }
         }
     }
-    
+
     static func applyYogaFacts(view: UIView, facts: Json) {
         view.configureLayout { (layout) in
             layout.isEnabled = true
@@ -728,7 +728,7 @@ class Renderer: NSObject {
                         layout.flexShrink = 0.0
                     }
                     break
-                    
+
                 case "borderWidth":
                     if let value = facts[key] as? Float {
                         layout.borderWidth = CGFloat(value)
@@ -954,7 +954,7 @@ class Renderer: NSObject {
             return .relative
         default:
             return nil
-            
+
         }
     }
 
@@ -985,7 +985,7 @@ extension UIControlActionFunctionProtocol where Self: UIControl {
             let trampoline = ActionTrampoline(action: action)
             self.addTarget(trampoline, action: #selector(ActionTrampoline<Self>.execute(sender:forEvent:)), for: event)
             objc_setAssociatedObject(self, UIControlActionFunctionProtocolAssociatedObjectKey, trampoline, .OBJC_ASSOCIATION_RETAIN)
-            
+
         }
     }
 }
