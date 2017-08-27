@@ -10,6 +10,7 @@ module Element.Attributes
         , lineBreakMode
         , shadowColor
         , shadowOffset
+        , src
         , backgroundColor
         , justifyContent
         , flexWrap
@@ -62,7 +63,7 @@ module Element.Attributes
         )
 
 {-| #Attributes
-@docs map, text, textColor, textAlignment, font, fontSize, numberOfLines, lineBreakMode, shadowColor, shadowOffset, backgroundColor, justifyContent, flexWrap, alignItems, alignSelf, alignContent, flexGrow, flexShrink, flexBasis, position, left, top, right, bottom, start, end, minWidth, minHeight, maxWidth, maxHeight, width, height, margin, marginLeft, marginTop, marginRight, marginBottom, marginStart, marginEnd, marginVertical, marginHorizontal, padding, paddingLeft, paddingTop, paddingRight, paddingBottom, paddingStart, paddingEnd, paddingVertical, paddingHorizontal, borderWidth, borderLeftWidth, borderTopWidth, borderRightWidth, borderBottomWidth, borderStartWidth, borderEndWidth, aspectRatio, direction
+@docs map, text, textColor, textAlignment, font, fontSize, numberOfLines, lineBreakMode, shadowColor, shadowOffset, src, backgroundColor, justifyContent, flexWrap, alignItems, alignSelf, alignContent, flexGrow, flexShrink, flexBasis, position, left, top, right, bottom, start, end, minWidth, minHeight, maxWidth, maxHeight, width, height, margin, marginLeft, marginTop, marginRight, marginBottom, marginStart, marginEnd, marginVertical, marginHorizontal, padding, paddingLeft, paddingTop, paddingRight, paddingBottom, paddingStart, paddingEnd, paddingVertical, paddingHorizontal, borderWidth, borderLeftWidth, borderTopWidth, borderRightWidth, borderBottomWidth, borderStartWidth, borderEndWidth, aspectRatio, direction
 -}
 
 import Color exposing (Color)
@@ -195,6 +196,16 @@ shadowOffset xOffset yOffset =
             , Json.float yOffset
             ]
         )
+
+
+
+{- Image -}
+
+
+{-| -}
+src : String -> Attribute msg
+src value =
+    stringProperty "src" value
 
 
 
