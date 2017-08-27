@@ -13,6 +13,7 @@
 		84A3FB051F4F0B8100B23681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A3FB041F4F0B8100B23681 /* Assets.xcassets */; };
 		84AF92AB1F506D3D00ADBF9D /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF92AA1F506D3D00ADBF9D /* Renderer.swift */; };
 		84AF92AD1F50757B00ADBF9D /* compiledElm.js in Resources */ = {isa = PBXBuildFile; fileRef = 84AF92AC1F50757B00ADBF9D /* compiledElm.js */; };
+		84CE2A161F5270B70078BCDA /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 84CE2A151F5270B70078BCDA /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		84A3FB091F4F0B8100B23681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84AF92AA1F506D3D00ADBF9D /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		84AF92AC1F50757B00ADBF9D /* compiledElm.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = compiledElm.js; sourceTree = "<group>"; };
+		84CE2A151F5270B70078BCDA /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		87E768031B57FED98910D97A /* Pods_AppTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2BAAB616F7D6B53A2BD0E71 /* Pods-AppTemplate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppTemplate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AppTemplate/Pods-AppTemplate.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -70,6 +72,7 @@
 		84A3FAFC1F4F0B8100B23681 /* AppTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				84CE2A151F5270B70078BCDA /* assets */,
 				84A3FAFD1F4F0B8100B23681 /* AppDelegate.swift */,
 				84AF92AA1F506D3D00ADBF9D /* Renderer.swift */,
 				84AF92AC1F50757B00ADBF9D /* compiledElm.js */,
@@ -149,6 +152,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84CE2A161F5270B70078BCDA /* assets in Resources */,
 				84AF92AD1F50757B00ADBF9D /* compiledElm.js in Resources */,
 				84A3FB051F4F0B8100B23681 /* Assets.xcassets in Resources */,
 			);
