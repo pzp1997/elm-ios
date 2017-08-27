@@ -548,7 +548,6 @@ var _pzp1997$elm_ios$Native_Element = function() {
 
   function makeCursorList(head) {
     return {
-      head: head,
       cursor: head
     };
   }
@@ -562,7 +561,7 @@ var _pzp1997$elm_ios$Native_Element = function() {
   }
 
   function insertAfterCursor(item, list) {
-    // no need to check for undefined, the head is always rootEventNode
+    // no need to check for undefined, rootEventNode is always at the head
     item.next = list.cursor.next;
     list.cursor.next = item;
     list.cursor = item;
