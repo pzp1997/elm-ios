@@ -75,6 +75,21 @@ class Renderer: NSObject {
                         }
 
                         return button
+                    case "image":
+                        if let src = facts["src"] as? String, let imageUrl = URL(string: "assets/" + src) {
+                            let fileName = imageUrl.deletingPathExtension().lastPathComponent
+                            let fileExtension = imageUrl.pathExtension
+                            let directory = imageUrl.deletingLastPathComponent().absoluteString
+
+                            if let imagePath = Bundle.main.path(forResource: fileName, ofType: fileExtension, inDirectory: directory), let imageData = UIImage(contentsOfFile: imagePath) {
+                                let image: UIImageView = UIImageView(image: imageData)
+
+                                applyFacts(view: image, facts: facts, tag: tag)
+
+                                return image
+                            }
+                        }
+                        return nil
                     default:
                         return nil
                     }
