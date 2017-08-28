@@ -190,11 +190,20 @@ var _pzp1997$elm_ios$Native_Element = function() {
 
 
   function diff(a, b, aOffset, bOffset, dominatingTagger, eventList) {
+    var thisOffset = bOffset.value;
+
     if (a === b) {
+      var aDescendantsCount = a.descendantsCount;
+
+      // skip over cached items in eventList and update their offsets
+      skipAhead(aOffset + aDescendantsCount, thisOffset - aOffset,
+        dominatingTagger, eventList);
+
+      // update bOffset with the number of nodes we skipped over
+      bOffset.value += aDescendantsCount;
+
       return;
     }
-
-    var thisOffset = bOffset.value;
 
     var aType = a.type;
     var bType = b.type;
@@ -252,33 +261,18 @@ var _pzp1997$elm_ios$Native_Element = function() {
     switch (bType) {
       case 'thunk':
         if (a.func === b.func && equalArrays(a.args, b.args)) {
+          var aDescendantsCount = a.descendantsCount;
+
           // skip over cached items in eventList and update their offsets
-          var deltaOffset = thisOffset - aOffset;
-
-          var descendantsCount = a.descendantsCount;
-          var lastOffset = aOffset + descendantsCount;
-
-          var node = eventList.cursor;
-          var next = node.next;
-          var originalParent = typeof next !== 'undefined' ?
-            next.parent : undefined;
-          while (typeof next !== 'undefined' && next.offset <= lastOffset) {
-            if (next.parent === originalParent) {
-              next.parent = dominatingTagger;
-            }
-            next.offset += deltaOffset;
-
-            node = next;
-            next = node.next;
-          }
-          eventList.cursor = node;
+          skipAhead(aOffset + aDescendantsCount, thisOffset - aOffset,
+            dominatingTagger, eventList);
 
           // update bOffset with the number of nodes we skipped over
-          bOffset.value += descendantsCount;
+          bOffset.value += aDescendantsCount;
 
           // copy over the actual node and descendantsCount
           b.node = a.node;
-          b.descendantsCount = descendantsCount;
+          b.descendantsCount = aDescendantsCount;
           return;
         }
 
@@ -582,6 +576,24 @@ var _pzp1997$elm_ios$Native_Element = function() {
     var removed = list.cursor.next;
     list.cursor.next = removed.next;
     return removed;
+  }
+
+  function skipAhead(lastOffset, deltaOffset, dominatingTagger, eventList) {
+    var node = eventList.cursor;
+    var next = node.next;
+    var originalParent = typeof next !== 'undefined' ? next.parent : undefined;
+
+    while (typeof next !== 'undefined' && next.offset <= lastOffset) {
+      if (next.parent === originalParent) {
+        next.parent = dominatingTagger;
+      }
+      next.offset += deltaOffset;
+
+      node = next;
+      next = node.next;
+    }
+
+    eventList.cursor = node;
   }
 
 
