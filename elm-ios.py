@@ -139,6 +139,7 @@ def main():
     TEMPLATE_DIR = join_path(ELM_IOS_DIR, 'AppTemplate')
     BUILD_DIR = join_path(CWD, 'ios')
     ASSETS_DIR = join_path(CWD, ASSETS_FNAME)
+    BUILD_ASSETS_DIR = join_path(BUILD_DIR, TEMPLATE_NAME, ASSETS_FNAME)
 
     # Process the args for later use
     elm_make_args, bundle_id = process_args(sys.argv)
@@ -158,8 +159,9 @@ def main():
 
     # Copy any assets, if they exist
     if os.path.isdir(ASSETS_DIR):
-        shutil.copytree(
-            ASSETS_DIR, join_path(BUILD_DIR, TEMPLATE_NAME, 'assets'))
+        shutil.copytree(ASSETS_DIR, BUILD_ASSETS_DIR)
+    else:
+        os.mkdir(BUILD_ASSETS_DIR)
 
     # Rename stuff if --name flag is present
     if bundle_id is not None:
