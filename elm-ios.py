@@ -4,7 +4,6 @@
 
 import os
 import os.path
-# import plistlib
 import shutil
 import stat
 import subprocess
@@ -17,8 +16,9 @@ __version__ = '0.1.0'
 # Constants
 TEMPLATE_NAME = 'AppTemplate'
 COMPILED_ELM_FNAME = 'compiledElm.js'
+ASSETS_FNAME = 'assets'
 OWNER = 'pzp1997'
-VERSION = '0.1.0'
+VERSION = __version__
 
 
 def join_path(*args):
@@ -41,7 +41,6 @@ def process_args(args):
             continue
 
         if arg.startswith('--name'):
-            print arg
             bundle_id = (arg.split('=', 1)[-1]
                          if '=' in arg else next(it))
             continue
@@ -59,8 +58,6 @@ def process_args(args):
 
     return new_args, bundle_id
 
-# def change_name(path, bundle_id, app_name):
-
 
 def find_and_replace(filepath, old, new):
     with open(filepath, 'r+') as f:
@@ -73,15 +70,6 @@ def find_and_replace(filepath, old, new):
 
 
 def change_app_name(path, app_name):
-    # files = []
-    ## Find and replace
-    # .xcworkspace/contents.xcworkspacedata
-    # .xcodeproj/project.xcworkspace/contents.xcworkspacedata
-    # .xcodeproj/project.pbxproj
-    # Podfile
-
-    # TODO workaround for bundle id in .xcodeproj/project.pbxproj
-
     for dirpath, dirnames, filenames in os.walk(path, topdown=True):
         for filename in filenames:
             # skip the compiled Elm file
@@ -89,8 +77,6 @@ def change_app_name(path, app_name):
                 continue
 
             filepath = os.path.join(dirpath, filename)
-
-            print filepath
 
             # make the file writable
             permissions_mode = os.stat(filepath).st_mode
@@ -105,7 +91,8 @@ def change_app_name(path, app_name):
                 os.rename(filepath, os.path.join(dirpath, new_name))
 
         # skip the assets directory
-        dirnames[:] = [dirname for dirname in dirnames if dirname != 'assets']
+        dirnames[:] = [dirname for dirname in dirnames
+                       if dirname != ASSETS_FNAME]
 
         for index, dirname in enumerate(dirnames):
             # rename the directory if it contains the app name
@@ -115,28 +102,7 @@ def change_app_name(path, app_name):
                 dirnames[index] = new_name
                 os.rename(os.path.join(dirpath, dirname),
                           os.path.join(dirpath, new_name))
-    #
-    #
-    # # Rename executable
-    # os.rename(join_path(path, TEMPLATE_NAME), join_path(path, app_name))
-    #
-    # # Update Info.plist
-    # update_info_plist(
-    #     join_path(path, app_name, 'Info.plist'), bundle_id, app_name)
-    #
-    # # TODO Rename top-level .app directory
-    # # os.rename(template_path, join_path(template_path, '..', app_name + '.app'))
-    #
-    # # TODO update Podfile with correct target when renaming
 
-
-# def update_info_plist(path, bundle_id, app_name):
-#     with open(path, 'w+') as file_pointer:
-#         info_plist = plistlib.readPlist(file_pointer)
-#         info_plist['CFBundleIdentifier'] = bundle_id
-#         info_plist['CFBundleName'] = app_name
-#         info_plist['CFBundleExecutable'] = app_name
-#         plistlib.writePlist(info_plist, file_pointer)
 
 def change_bundle_id(path, bundle_id, app_name):
     pbxproj_path = join_path(
@@ -172,29 +138,16 @@ def main():
 
     TEMPLATE_DIR = join_path(ELM_IOS_DIR, 'AppTemplate')
     BUILD_DIR = join_path(CWD, 'ios')
-    ASSETS_DIR = join_path(CWD, 'assets')
+    ASSETS_DIR = join_path(CWD, ASSETS_FNAME)
 
     # Process the args for later use
     elm_make_args, bundle_id = process_args(sys.argv)
 
-    # if bundle_id is None:
-    #     print ("You must specify a Bundle Identifier using the --name flag. "
-    #            "Typically, the Bundle Identifier is in reverse domain name "
-    #            "notation, e.g. com.company.MyAwesomeApp.")
-    #     raise SystemExit
-
     run_elm_make(elm_make_args)
-
-    # # Create the build directory if it doesn't yet exist
-    #
-    # if not os.path.isdir(BUILD_DIR):
-    #     os.makedirs(BUILD_DIR)
 
     # Clean the build directory
     if os.path.isdir(BUILD_DIR):
         shutil.rmtree(BUILD_DIR)
-
-        # bundle_id = bundle_id or 'com.company.ExampleApp'
 
     # Copy the template into the build directory
     shutil.copytree(TEMPLATE_DIR, BUILD_DIR)
@@ -208,14 +161,14 @@ def main():
         shutil.copytree(
             ASSETS_DIR, join_path(BUILD_DIR, TEMPLATE_NAME, 'assets'))
 
-    # Rename stuff if --name flag
+    # Rename stuff if --name flag is present
     if bundle_id is not None:
         # Change the name in the build directory
         app_name = bundle_id.rsplit('.', 1)[-1]
         change_app_name(BUILD_DIR, app_name)
         change_bundle_id(BUILD_DIR, bundle_id, app_name)
 
-    print 'app was successfully created in ./ios'
+    print "created Xcode project in ./ios"
 
 
 if __name__ == '__main__':
