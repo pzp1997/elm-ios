@@ -259,10 +259,17 @@ var _pzp1997$elm_ios$Native_Element = function() {
           var lastOffset = aOffset + descendantsCount;
 
           var node = eventList.cursor;
-          var next;
-          while (typeof(next = node.next) !== 'undefined' && next.offset <= lastOffset) {
-            node.offset += deltaOffset;
+          var next = node.next;
+          var originalParent = typeof next !== 'undefined' ?
+            next.parent : undefined;
+          while (typeof next !== 'undefined' && next.offset <= lastOffset) {
+            if (next.parent === originalParent) {
+              next.parent = dominatingTagger;
+            }
+            next.offset += deltaOffset;
+
             node = next;
+            next = node.next;
           }
           eventList.cursor = node;
 
