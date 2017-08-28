@@ -1,6 +1,5 @@
 # Elm iOS
-
-## Bringing the wonders of Elm to the iOS platform
+### Bringing the wonders of Elm to the iOS platform
 
 ## Current Status
 
