@@ -9,19 +9,42 @@ Looking ahead, I intend to actively maintain the project, however, new developme
 
 ## Usage
 
+Since Elm iOS contains Kernel code, you cannot yet install it using `elm-package install`. For this reason, I recommend using [elm-github-install](https://github.com/gdotdesign/elm-github-install) to install it. To go down this route, your `elm-package.json` file should look something like this.
+
+```
+{
+    "version": "1.0.0",
+    "summary": "helpful summary of your project, less than 80 characters",
+    "repository": "https://github.com/user/project.git",
+    "license": "BSD3",
+    "source-directories": [
+        "."
+    ],
+    "exposed-modules": [],
+    "dependencies": {
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "pzp1997/elm-ios": "0.1.0 <= v <= 0.1.0"
+    },
+    "dependency-sources": {
+      "pzp1997/elm-ios": "https://github.com/pzp1997/elm-ios.git"
+    },
+    "elm-version": "0.18.0 <= v < 0.19.0"
+}
+```
+
 Included in the package is a CLI script called `elm-ios.py`. This script is a wrapper around `elm-make` that should be used for compiling Elm iOS apps. The options and flags behave identically to `elm-make` except for in the following regards.
 
 1. A new flag called `--name` has been added for specifying the bundle identifier for your app. The bundle identifier is typically written using reverse domain name notation, e.g. `com.palmerpaul.MyAwesomeApp`.
 2. The `--output` flag is ignored.
 
-When you run the script, it will create an Xcode project in the `ios/` directory with your compiled Elm program and static assets. From there, you can open the `<NAME_OF_YOUR_APP>.xcworkspace` file to run or modify the project using Xcode. Note that each time the script is run it will clean the `ios/` directory, so to prevent data loss, try not to store anything important in there.
+When you run the script, it will create an Xcode project in the `ios/` directory from your compiled Elm program and static assets. From there, you can open the `<NAME_OF_YOUR_APP>.xcworkspace` file to run or modify the project using Xcode. Note that each time the script is run it will clean the `ios/` directory, so to prevent data loss, try not to store anything important in there.
 
 In order to make this process successfully work, there are two naming restrictions that we have established.
 
 1. The Elm module that you compile must be named `Main`. This means that the first line of the Elm file that you pass to `elm-ios.py` should be `module Main exposing (..)`. (Once this project is properly integrated with the Elm compiler, this restriction will likely be lifted.)
 2. All static assets that you want to bundle with your app must be in a directory named `assets/` located in your project directory (where your `elm-package.json` file lives).
 
-_Pro Tip: Once you install the package, I recommend moving the `elm-ios.py` script from the elm-ios package directory to your project directory to make it easier to run._
+_Pro Tip: Once you install the package, I recommend moving the `elm-ios.py` script from the elm-ios package directory to your project directory to make it easier to run. You can do this by running the command `cp elm-stuff/packages/pzp1997/elm-ios/0.1.0/elm-ios.py .`._
 
 ## Examples
 
