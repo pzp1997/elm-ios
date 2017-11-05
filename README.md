@@ -91,7 +91,7 @@ This repo is comprised of work from three other repos (although all further deve
 
 ## Contributing
 
-If you are interested in contributing, contact me _before_ you start working on the project. Doing so makes it easier for me to help you, allows us to use our resources most effectively, and ensures that your efforts will not be in vain. There are plenty of tasks of varying difficulty and time commitment that you can help out with. Please contact me for more info.
+If you are interested in contributing, contact me _before_ you start working on the project. Doing so makes it easier for me to help you, allows us to use our resources most effectively, and ensures that your efforts will not be in vain. There are plenty of tasks of varying difficulty and time commitment that you can help out with. Please check out [CONTRIBUTING.md](CONTRIBUTING.md) and contact me for more info.
 
 ## Acknowledgements
 
